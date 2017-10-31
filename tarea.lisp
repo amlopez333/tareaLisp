@@ -47,16 +47,26 @@
                      anterior)))))
 
 (defun cartesiano (a b)
-    (cond   ((or (null a) (atom a)) nil)
-            ((or (null b) (atom b)) nil)
-            (t (appnd (pares* (car a) b) (cartesiano (cdr a) b)))
+    (cond ((or(null a)(atom a)) nil)
+            ((or(null b)(atom b)) nil)
+            (t(cons (pares* (car a) b) (pares* a (crd b))))
     )
 )
 
 (defun pares* (a b)
-    (cond   ((null b) nil)
-            (t (cons (cons a (car b)) (pares* a (cdr b))))
+    (cond ((null b) nil)
+        (t (cons (cons a (car b))(pares* a (cdr b))))
     )
+)
+
+(setq lista '(a b c))
+(defun circular (l)
+(and (setf (cdr (last l)) l) t))
+
+(defun avanza (c lista)
+	(cond ((eq c (car lista)) (car lista))
+		(t (avanza c (cdr lista)))
+	)
 )
 
 (defun appnd (1st tail)
@@ -83,16 +93,6 @@
             ((equal C (car Ae)) (car As))
             (t (girar C (cdr Ae)(cdr As) ))
     )
-)
-
-(setq lista '(a b c))
-(defun circular (l)
-(and (setf (cdr (last l)) l) t))
-
-(defun avanza (c lista)
-	(cond ((eq c (car lista)) (car lista))
-		(t (avanza c (cdr lista)))
-	)
 )
 
 
