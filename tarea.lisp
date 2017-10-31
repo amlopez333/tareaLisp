@@ -58,3 +58,15 @@
         (t (cons (cons a (car b))(pares* a (cdr b))))
     )
 )
+
+(setq lista '(a b c))
+(defun circular (l)
+(and (setf (cdr (last l)) l) t))
+
+(defun avanza (c lista)
+	(cond ((eq c (car lista)) (car lista))
+		(t (avanza c (cdr lista)))
+	)
+)
+
+
