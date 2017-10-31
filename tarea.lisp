@@ -59,19 +59,19 @@
     )
 )
 
+(defun appnd (1st tail)
+	(cond ((null 1st) tail)
+			(t (cons (car 1st) (appnd (cdr 1st) tail)))
+	)
+)
+
 (setq lista '(a b c))
 (defun circular (l)
-(and (setf (cdr (last l)) l) t))
+(and (setf (cdr (last l)) l) l))
 
 (defun avanza (c lista)
 	(cond ((eq c (car lista)) (car lista))
 		(t (avanza c (cdr lista)))
-	)
-)
-
-(defun appnd (1st tail)
-	(cond ((null 1st) tail)
-			(t (cons (car 1st) (appnd (cdr 1st) tail)))
 	)
 )
 
@@ -83,8 +83,8 @@
 )
 
 (defun encriptar* (H Ae As Ue Us)
-	(cond ((null H) (cons ( cons Ue Us) nil))
-			(t (cons (girar (car H) Ae As) (encriptar*(cdr H) Ae As (car Ae) (car As))))
+	(cond ((null H) (cons (cons Ue Us) nil))
+			(t (cons (girar (car H) Ae As) (encriptar*(cdr H) (cdr Ae) (cdr As) (car Ae) (car As))))
     )
 )
 
@@ -94,5 +94,10 @@
             (t (girar C (cdr Ae)(cdr As) ))
     )
 )
+
+(defun encripta(H Ae As)
+	(car(encriptar H (circular Ae) (circular As)))
+)
+	
 
 
