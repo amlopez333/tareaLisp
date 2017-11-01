@@ -66,6 +66,7 @@
              (append (mapcar #'(lambda (sub) (cons (car c) sub)) anterior)
                      anterior)))))
 
+;; funcion que obtiene el producto cartesiano de dos conjunto dados (a y b)
 (defun cartesiano (a b)
     (cond   ((or (null a) (atom a)) nil)
             ((or (null b) (atom b)) nil)
@@ -73,6 +74,7 @@
     )
 )
 
+;; funcion auxiliar que obtiene los pares ordenados posibles entre un atomo A y los elementos de un conjunto B
 (defun pares* (a b)
     (cond   ((null b) nil)
             (t (cons (cons a (car b)) (pares* a (cdr b))))
