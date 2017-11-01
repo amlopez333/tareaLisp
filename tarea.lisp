@@ -70,7 +70,7 @@
 (and (setf (cdr (last l)) l) l))
 
 (defun avanza (c lista)
-	(cond ((eq c (car lista)) (car lista))
+	(cond ((eq c (car lista)) lista)
 		(t (avanza c (cdr lista)))
 	)
 )
@@ -96,8 +96,23 @@
 )
 
 (defun encripta(H Ae As)
-	(car(encriptar H (circular Ae) (circular As)))
+	(encriptar H (circular Ae) (circular (reversa As)))
 )
-	
+
+(defun desencripta (H Ae As Ef)
+	(desencriptar H (avanza (cadr Ef) (circular (reversa As))) (avanza (car Ef) (circular Ae)))
+)
+
+(defun desencriptar (H Ae As)
+	(cond ((null H) nil)
+			(t (cons (girar (car H) Ae As) (desencriptar(cdr H) (cdr Ae) (cdr As) )))
+    )
+)
+
+(defun reversa (l)
+   (cond ((null l) nil)
+         (t (append (reversa (cdr l))
+                    (cons (car l) nil)))))
+
 
 
