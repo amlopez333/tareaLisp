@@ -67,23 +67,18 @@
                      anterior)))))
 
 (defun cartesiano (a b)
-    (cond ((or(null a)(atom a)) nil)
-            ((or(null b)(atom b)) nil)
-            (t(cons (pares* (car a) b) (pares* a (crd b))))
+    (cond   ((or (null a) (atom a)) nil)
+            ((or (null b) (atom b)) nil)
+            (t (append (pares* (car a) b) (cartesiano (cdr a) b)))
     )
 )
 
 (defun pares* (a b)
-    (cond ((null b) nil)
-        (t (cons (cons a (car b))(pares* a (cdr b))))
+    (cond   ((null b) nil)
+            (t (cons (cons a (car b)) (pares* a (cdr b))))
     )
 )
 
-(defun appnd (1st tail)
-	(cond ((null 1st) tail)
-			(t (cons (car 1st) (appnd (cdr 1st) tail)))
-	)
-)
 
 
 ;; funcion que vuelve la lista l en una circular
