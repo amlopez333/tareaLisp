@@ -66,6 +66,7 @@
 )
 
 (setq lista '(a b c))
+(circular lista)
 (defun circular (l)
 (and (setf (cdr (last l)) l) l))
 
@@ -84,15 +85,21 @@
 
 (defun encriptar* (H Ae As Ue Us)
 	(cond ((null H) (cons (cons Ue Us) nil))
-			(t (cons (girar (car H) Ae As) (encriptar*(cdr H) (cdr Ae) (cdr As) (car Ae) (car As))))
+			(t (cons (nesimo(girar (car H) Ae As 1) As) (encriptar*(cdr H) (girarNVeces Ae (girar (car H) Ae As 1)) (girarNVeces As (girar (car H) Ae As 1)) (car (girarNVeces Ae (girar (car H) Ae As 0))) (car (girarNVeces As (girar (car H) Ae As 0))))))
     )
 )
 
-(defun girar (C Ae As)
+(defun girar (C Ae As Cont)
     (cond ((null C) nil)       
-            ((equal C (car Ae)) (car As))
-            (t (girar C (cdr Ae)(cdr As) ))
+            ((equal C (car Ae)) Cont)
+            (t (girar C (cdr Ae)(cdr As) (+ cont 1)))
     )
+)
+
+(defun girarNVeces (lista n)
+	(cond ((eq n 0) lista)
+		(t (girarNVeces (cdr lista)(- n 1)))
+	)
 )
 
 (defun encripta(H Ae As)
@@ -100,12 +107,12 @@
 )
 
 (defun desencripta (H Ae As Ef)
-	(desencriptar H (avanza (cadr Ef) (circular (reversa As))) (avanza (car Ef) (circular Ae)))
+	(desencriptar H (avanza (cadr Ef) (circular As)) (avanza (car Ef) (circular (reversa Ae))))
 )
 
 (defun desencriptar (H Ae As)
 	(cond ((null H) nil)
-			(t (cons (girar (car H) Ae As) (desencriptar(cdr H) (cdr Ae) (cdr As) )))
+			(t (cons (nesimo(girar (car H) Ae As 1) As) (encriptar*(cdr H) (girarNVeces Ae (girar (car H) Ae As 1)) (girarNVeces As (girar (car H) Ae As 1)) (car (girarNVeces Ae (girar (car H) Ae As 1))) (car (girarNVeces As (girar (car H) Ae As 1))))))
     )
 )
 
@@ -114,5 +121,7 @@
          (t (append (reversa (cdr l))
                     (cons (car l) nil)))))
 
-
+(defun nesimo (n l)
+   (cond ((eq n 1) (car l))
+         (t (nesimo (- n 1) (cdr l)))))
 
