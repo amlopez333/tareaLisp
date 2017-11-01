@@ -1,5 +1,5 @@
 ;; Andres Lopez Urena -- b43885
-;; Olman Cheng Lam --
+;; Olman Cheng Lam -- b31953
 ;; Tarea 2 -- Lisp
 ;;------------------------------------------------------------
 
@@ -74,7 +74,8 @@
     )
 )
 
-;; funcion auxiliar que obtiene los pares ordenados posibles entre un atomo A y los elementos de un conjunto B
+;; funcion auxiliar que obtiene los pares ordenados posibles entre un atomo A
+;; y los elementos de un conjunto B
 (defun pares* (a b)
     (cond   ((null b) nil)
             (t (cons (cons a (car b)) (pares* a (cdr b))))
